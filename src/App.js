@@ -1,4 +1,3 @@
-// import logo from './logo.svg';
 import { Header, Footer } from "./components";
 import { AllRoutes } from "./routes/AllRoutes";
 import "./App.css";
