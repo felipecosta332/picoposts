@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom";
+import { useTitle } from "../hooks";
 import { addDoc, collection } from "firebase/firestore";
 import { db, auth } from "../firebase/config";
-import { useNavigate } from "react-router-dom";
 
 export const CreatePost = () => {
   const navigate = useNavigate();
+  useTitle("Create Post")
   const postRef = collection(db, "posts");
 
   async function handleCreatePost(event) {

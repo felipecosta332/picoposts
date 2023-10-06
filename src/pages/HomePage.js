@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { useTitle } from "../hooks";
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "../firebase/config";
 import { PostCard } from "../components";
 
 export const HomePage = () => {
   const [posts, setPosts] = useState([]);
-  const postsRef = collection(db, "posts");
+  const [toggle, setToggle] = useState(false);
+  useTitle("Home")
+  const postsRef = useRef(collection(db, "posts"));
 
   useEffect(() => {
     async function getPosts() {
-      const data = await getDocs(postsRef);
+      const data = await getDocs(postsRef.current);
       setPosts(
         data.docs.map((document) => ({
           ...document.data(),
@@ -18,12 +21,17 @@ export const HomePage = () => {
       );
     }
     getPosts();
-  }, []);
+  }, [postsRef, toggle]);
 
   return (
     <section>
       {posts.map((post) => (
-        <PostCard key={post.id} post={post} />
+        <PostCard
+          key={post.id}
+          post={post}
+          toggle={toggle}
+          setToggle={setToggle}
+        />
       ))}
     </section>
   );
