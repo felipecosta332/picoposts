@@ -7,7 +7,7 @@ import { PostCard } from "../components";
 export const HomePage = () => {
   const [posts, setPosts] = useState([]);
   const [toggle, setToggle] = useState(false);
-  useTitle("Home")
+  useTitle("Home");
   const postsRef = useRef(collection(db, "posts"));
 
   useEffect(() => {
